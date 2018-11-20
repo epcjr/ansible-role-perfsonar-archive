@@ -1,0 +1,9 @@
+---
+# tasks file for perfsonar-archive
+
+- name: Configure esmond for perfSONAR
+  command: /usr/lib/perfsonar/scripts/system_environment/configure_esmond new
+
+- name: Add authorised IP addresses to esmond
+  command: /usr/sbin/esmond_manage add_user_ip_address example_user "{{ item }}"
+  with_items: "{{ perfsonar_archiver_auth_ipv4 | default([]) }}"
